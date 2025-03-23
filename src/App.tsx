@@ -4,7 +4,15 @@ import 'flexlayout-react/style/light.css';
 import { useRef } from 'react';
 
 var json: IJsonModel = {
-    global: { "tabEnablePopout": true },
+    global: { 
+        "tabEnablePopout": true,
+        "splitterEnableHandle": true,
+		"tabSetMinWidth": 130,
+		"tabSetMinHeight": 100,
+		"borderMinSize": 100,
+		"tabSetEnableTabScrollbar": true,
+		"borderEnableTabScrollbar": true
+    },
     borders: [
         {
             "type": "border",
@@ -92,7 +100,7 @@ function App() {
             model={model}
             factory={factory}
             onRenderTabSet={onRenderTabSet}
-            // realtimeResize={true}
+            realtimeResize={true}
         />
     );
 }
