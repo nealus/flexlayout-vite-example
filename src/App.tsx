@@ -1,7 +1,7 @@
 import { Layout, Model, TabNode, IJsonModel, TabSetNode, BorderNode, ITabSetRenderValues, Actions, DockLocation } from 'flexlayout-react';
 import './App.css';
 import 'flexlayout-react/style/light.css';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 var json: IJsonModel = {
     global: { 
@@ -60,7 +60,6 @@ var json: IJsonModel = {
 const model = Model.fromJson(json);
 
 function App() {
-
     const nextAddIndex = useRef<number>(1);
 
     const factory = (node: TabNode) => {
@@ -70,7 +69,7 @@ function App() {
                 return <div className="placeholder">{node.getName()}</div>;
                 break;
             case "json":
-                return <pre>{JSON.stringify(json, null, "\t")}</pre>;
+                return <ModelJson model={model}/>;
                 break;
             default:
                 return <div>{"unknown component " + component}</div>
@@ -102,6 +101,23 @@ function App() {
             onRenderTabSet={onRenderTabSet}
             realtimeResize={true}
         />
+    );
+}
+
+// component to show the current model json
+function ModelJson({model}:{model: Model}) {
+    const [json, setJson] = useState<string>(JSON.stringify(model.toJson(), null, "\t"));
+    const timerRef = useRef<any>(undefined);
+
+    useEffect(() => {
+        timerRef.current = setInterval(() => {
+            setJson(JSON.stringify(model.toJson(), null, "\t"));
+        }, 500);
+        return () => { clearInterval(timerRef.current)}
+    }, []);
+
+    return (
+        <pre>{json}</pre>
     );
 }
 
