@@ -1,7 +1,7 @@
-import { Layout, Model, TabNode, IJsonModel, TabSetNode, BorderNode, ITabSetRenderValues, Actions, DockLocation } from 'flexlayout-react';
-import './App.css';
-import 'flexlayout-react/style/light.css';
 import { useEffect, useRef, useState } from 'react';
+import { Layout, Model, TabNode, IJsonModel, TabSetNode, BorderNode, ITabSetRenderValues, Actions, DockLocation } from 'flexlayout-react';
+import 'flexlayout-react/style/light.css';
+import './App.css';
 
 var json: IJsonModel = {
     global: { 
@@ -67,10 +67,8 @@ function App() {
         switch (component) {
             case "placeholder":
                 return <div className="placeholder">{node.getName()}</div>;
-                break;
             case "json":
                 return <ModelJson model={model}/>;
-                break;
             default:
                 return <div>{"unknown component " + component}</div>
         }
@@ -107,7 +105,7 @@ function App() {
 // component to show the current model json
 function ModelJson({model}:{model: Model}) {
     const [json, setJson] = useState<string>(JSON.stringify(model.toJson(), null, "\t"));
-    const timerRef = useRef<any>(undefined);
+    const timerRef = useRef<number>(0);
 
     useEffect(() => {
         timerRef.current = setInterval(() => {
