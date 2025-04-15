@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       flexlayout-react:
-        specifier: 0.8.10
-        version: 0.8.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 0.8.12
+        version: 0.8.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -738,8 +738,8 @@ packages:
   flatted@3.3.2:
     resolution: {integrity: sha512-AiwGJM8YcNOaobumgtng+6NHuOqC3A7MixFeDafM3X9cIUM+xUXoS5Vfgf+OihAYe20fxqNM9yPBXJzRtZ/4eA==}
 
-  flexlayout-react@0.8.10:
-    resolution: {integrity: sha512-DCrOrMhr7lJBVBW74z4BrT56M422AU4A80/7tO74sarqvyIIgusscDGmk8klC7rbpQIaL2bJbw8OyCv7g3fOtA==}
+  flexlayout-react@0.8.12:
+    resolution: {integrity: sha512-9/6ZSIdT2vdq72d6OhdvbED6amv1ExNV20CCTe+JRunQxeYHz78CoKBb/t2ZHmRMj0xjv/ua7Gztoux8JsPlWw==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
@@ -1758,7 +1758,7 @@ snapshots:
 
   flatted@3.3.2: {}
 
-  flexlayout-react@0.8.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  flexlayout-react@0.8.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
