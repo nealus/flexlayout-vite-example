@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { Layout, Model, TabNode, IJsonModel, TabSetNode, BorderNode, ITabSetRenderValues, Actions, DockLocation } from 'flexlayout-react';
+import { Layout, Model, TabNode, IJsonModel, TabSetNode, BorderNode, ITabSetRenderValues, Actions, DockLocation, AddIcon } from 'flexlayout-react';
 import 'flexlayout-react/style/light.css';
 import './App.css';
 
-var json: IJsonModel = {
+const json: IJsonModel = {
     global: { 
         "tabEnablePopout": true,
         "splitterEnableHandle": true,
@@ -63,7 +63,7 @@ function App() {
     const nextAddIndex = useRef<number>(1);
 
     const factory = (node: TabNode) => {
-        var component = node.getComponent();
+        const component = node.getComponent();
         switch (component) {
             case "placeholder":
                 return <div className="placeholder">{node.getName()}</div>;
@@ -80,7 +80,6 @@ function App() {
                 <button
                     key="Add"
                     title="Add"
-                    style={{ fontSize: "20px", color: "gray", width: "1em" }}
                     className="flexlayout__tab_toolbar_button"
                     onClick={() => {
                         model.doAction(Actions.addNode({
@@ -88,7 +87,7 @@ function App() {
                             name: "Added " + nextAddIndex.current++
                         }, node.getId(), DockLocation.CENTER, -1, true));
                     }}
-                >+</button>);
+                ><AddIcon/></button>);
         }
     }
 
