@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Layout, Model, TabNode, IJsonModel, TabSetNode, BorderNode, ITabSetRenderValues, Actions, DockLocation, AddIcon } from 'flexlayout-react';
-import 'flexlayout-react/style/light.css';
+import 'flexlayout-react/style/combined.css';
 import './App.css';
 
 const json: IJsonModel = {
     global: { 
         "tabEnablePopout": true,
-        "splitterEnableHandle": true,
 		"tabSetMinWidth": 130,
 		"tabSetMinHeight": 100,
 		"borderMinSize": 100,
@@ -82,7 +81,7 @@ function App() {
                     title="Add"
                     className="flexlayout__tab_toolbar_button"
                     onClick={() => {
-                        model.doAction(Actions.addNode({
+                        model.doAction(Actions.addTab({
                             component: "placeholder",
                             name: "Added " + nextAddIndex.current++
                         }, node.getId(), DockLocation.CENTER, -1, true));
@@ -92,12 +91,14 @@ function App() {
     }
 
     return (
+        <div className="flexlayout__theme_alpha_light">
         <Layout
             model={model}
             factory={factory}
             onRenderTabSet={onRenderTabSet}
             realtimeResize={true}
         />
+        </div>
     );
 }
 
