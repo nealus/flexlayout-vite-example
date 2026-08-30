@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { Layout, Model, TabNode, IJsonModel, TabSetNode, BorderNode, ITabSetRenderValues, Actions, DockLocation, AddIcon } from 'flexlayout-react';
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
+import { Layout, Model, Actions, DockLocation, AddIcon, TabSetNode, ContextMenuBuilder, showPopupMenu } from 'flexlayout-react';
+import type { TabNode, IJsonModel, BorderNode, ITabSetRenderValues, TabGroupNode } from 'flexlayout-react';
 import 'flexlayout-react/style/combined.css';
 import './App.css';
 
@@ -59,6 +60,7 @@ const json: IJsonModel = {
 const model = Model.fromJson(json);
 
 function App() {
+    const containerRef = useRef<HTMLDivElement>(null);
     const nextAddIndex = useRef<number>(1);
 
     const factory = (node: TabNode) => {
@@ -90,12 +92,34 @@ function App() {
         }
     }
 
+    const onContextMenu = (
+        node: TabNode | TabSetNode | BorderNode | TabGroupNode,
+        event: ReactMouseEvent<HTMLElement, globalThis.MouseEvent>,
+    ) => {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        const entries = new ContextMenuBuilder(node).addStandard().build();
+        if (entries.length === 0) return;
+
+        const container = node.getLayoutRef()!;
+        if (!container) return;
+
+        showPopupMenu({
+            anchor: { x: event.clientX, y: event.clientY },
+            items: entries,
+            onClose: () => {},
+            container,
+        });
+    };
+
     return (
-        <div className="flexlayout__theme_alpha_light">
+        <div ref={containerRef} className="flexlayout__theme_alpha_light" style={{ position: 'relative', width: '100vw', height: '100vh' }}>
         <Layout
             model={model}
             factory={factory}
             onRenderTabSet={onRenderTabSet}
+            onContextMenu={onContextMenu}
             realtimeResize={true}
         />
         </div>
